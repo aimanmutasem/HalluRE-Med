@@ -1,6 +1,6 @@
-# Public Benchmarks
+# RE Benchmarks
 
-This directory provides access instructions for the two public benchmark files used in **HalluRE-Med**.
+This directory provides access to the two public benchmark files used in **HalluRE-Med**.
 
 ## 1) Unified RE Benchmark
 - **File name:** `unified_RE_benchmark.jsonl`
