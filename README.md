@@ -1,6 +1,6 @@
 # HalluRE-Med
 
-**HalluRE-Med** is a benchmark suite for evaluating large language models (LLMs) in **biomedical relation extraction (RE)**, with a focus on both **extraction quality** and **hallucination robustness**. It is designed to measure not only whether a model can extract structured biomedical relations, but also whether those predictions are semantically trustworthy. :contentReference[oaicite:0]{index=0}
+**HalluRE-Med** is a benchmark suite for evaluating large language models (LLMs) in **biomedical relation extraction (RE)**, with a focus on both **extraction quality** and **hallucination robustness**. It is designed to measure not only whether a model can extract structured biomedical relations, but also whether those predictions are semantically trustworthy.
 
 This repository releases **two benchmarks**:
 
