@@ -1,0 +1,38 @@
+Dataset: DDI
+Annotation level: mention-level
+Task type: drug_drug_interaction
+Category: context_induced
+
+SCHEMA CONSTRAINTS (enforced; violations are rejected)
+1. Exactly TWO arguments per relation.
+2. Roles are exactly "e1" and "e2".
+3. Valid labels only: MECHANISM, EFFECT, ADVISE, INT.
+   NON is NOT a valid generated label. NON marks pairs the corpus
+   annotators examined and found to have no stated interaction; it is an
+   annotation, not a prediction. Never output it.
+4. Both arguments must be drug-like entities: DRUG, BRAND, GROUP, or
+   DRUG_N. A brand name or a drug class is a legitimate argument.
+5. Both entity_id values must come from the entities list.
+
+WHAT MAKES A GOOD DDI CONTEXT-INDUCED INSTANCE
+The unused_entity_pairs list is ordered so that pairs the corpus annotates
+as NON come first. Those are the strongest choices: a human annotator has
+already confirmed the sentence states no interaction between them, so a
+relation you assert there is verifiably unsupported.
+
+Then write a context passage that makes the interaction plausible: shared
+metabolic pathway, overlapping enzyme substrate, additive pharmacodynamic
+effect, or comparable class behaviour. The reader should be able to reach
+the interaction; the passage should not announce it.
+
+Choose the label to match the mechanism you describe:
+  MECHANISM - pharmacokinetic (absorption, metabolism, clearance, CYP)
+  EFFECT    - pharmacodynamic outcome (additive sedation, bleeding risk)
+  ADVISE    - a recommendation about co-administration
+  INT       - an interaction asserted without a stated mechanism
+
+REMINDERS
+- Do not treat simple co-occurrence in the sentence as evidence.
+- Return only the new interaction, not the gold ones.
+- context_text is required and must differ from current_context_text.
+- Return JSON only.

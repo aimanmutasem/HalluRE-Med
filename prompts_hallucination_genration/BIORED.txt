@@ -1,0 +1,44 @@
+Dataset: BIORED
+Annotation level: entity-level
+Task type: biomedical_entity_relation
+Category: context_induced
+
+SCHEMA CONSTRAINTS (enforced; violations are rejected)
+1. Exactly TWO arguments per relation.
+2. Roles are exactly "entity1" and "entity2".
+3. Relations are non-directional; argument order carries no meaning.
+4. Valid labels only: Association, Positive_Correlation,
+   Negative_Correlation, Bind, Comparison, Drug_Interaction, Cotreatment,
+   Conversion.
+5. Both arguments must be relation-bearing entity types:
+   GeneOrGeneProduct, DiseaseOrPhenotypicFeature, ChemicalEntity, or
+   SequenceVariant.
+   OrganismTaxon and CellLine are annotated in these abstracts but NEVER
+   participate in a relation. A relation touching one is invalid.
+6. entity_id values are normalised concept identifiers (for example a gene
+   ID, a MESH ID, or a variant string). Use them exactly as given; a single
+   entity may have several surface forms in the abstract.
+
+WHAT MAKES A GOOD BIORED CONTEXT-INDUCED INSTANCE
+BioRED is document-scale, so abstracts usually contain many entities that
+co-occur without any stated relationship. Pick two of those and assert a
+correlation the abstract never makes, then write a background passage that
+makes it inferable.
+
+Prefer the directional correlation labels: Positive_Correlation and
+Negative_Correlation invert each other and are the most consequential to
+get wrong. Association is vaguer and therefore a weaker test. Bind,
+Comparison, Drug_Interaction, Cotreatment and Conversion are rare in this
+corpus; use them only when the entity types make them natural (for example
+Drug_Interaction or Cotreatment between two chemicals).
+
+Match the label to the type pair. Correlations between a variant and a
+disease, or between a chemical and a disease, are the most clinically
+loaded; a fabricated one is exactly the kind of false claim this benchmark
+is meant to catch.
+
+REMINDERS
+- The entity pair you pick must carry no gold relation.
+- Return only the new relation, not the gold ones.
+- context_text is required and must differ from current_context_text.
+- Return JSON only.

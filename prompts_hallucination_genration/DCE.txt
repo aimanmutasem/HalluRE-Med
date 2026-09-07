@@ -1,0 +1,32 @@
+Dataset: DCE
+Annotation level: mention-level
+Task type: drug_combination_relation
+Category: context_induced
+
+SCHEMA CONSTRAINTS (enforced; violations are rejected)
+1. A relation has TWO OR MORE arguments (a drug combination).
+2. Every role is "span". There is no arg1/arg2 distinction.
+3. Valid labels only: POS, COMB, NEG.
+4. Every argument must be a DRUG entity from the entities list.
+5. No entity may appear twice in one combination.
+6. Relations are non-directional; argument order carries no meaning.
+
+WHAT MAKES A GOOD DCE CONTEXT-INDUCED INSTANCE
+DCE is the one corpus where context_text is a genuine paragraph from the
+source abstract rather than a summary, and roughly two thirds of gold
+relations need that paragraph to determine efficacy. That makes it the
+natural home for this category.
+
+Assert a combination the focal sentence does not support, then rewrite the
+paragraph so the combination looks efficacious (or non-efficacious) to a
+reader working from context alone. Efficacy labels are the consequential
+ones: POS and NEG invert each other and would change a treatment choice.
+COMB is the weakest signal; prefer POS or NEG.
+
+REMINDERS
+- The combination you assert must not match any gold combination.
+- Keep the arity realistic: two or three drugs, matching how the corpus
+  describes combinations.
+- Return only the new combination, not the gold ones.
+- context_text is required and must differ from current_context_text.
+- Return JSON only.

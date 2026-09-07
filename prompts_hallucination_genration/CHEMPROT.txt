@@ -1,0 +1,36 @@
+Dataset: CHEMPROT
+Annotation level: mention-level
+Task type: chemical_gene_relation
+Category: context_induced
+
+SCHEMA CONSTRAINTS (enforced; violations are rejected)
+1. Exactly TWO arguments per relation.
+2. Roles are exactly "arg1" and "arg2", in that order.
+   arg1 MUST be the CHEMICAL. arg2 MUST be the gene (GENE-Y or GENE-N).
+   Never CHEMICAL-CHEMICAL, never GENE-GENE.
+3. Valid labels only: CPR:3, CPR:4, CPR:5, CPR:6, CPR:9.
+4. Both entity_id values must come from the entities list.
+
+WHAT MAKES A GOOD CHEMPROT CONTEXT-INDUCED INSTANCE
+Choose a chemical and a gene that co-occur in the abstract but whose
+regulatory relationship the abstract never states. Then write a context
+passage describing a pathway, assay result, or mechanism that would lead a
+reader to infer that relationship.
+
+Prefer directional regulatory labels over generic ones: CPR:3 (upregulator
+or activator) and CPR:4 (downregulator or inhibitor) invert each other and
+are the most consequential to get wrong. CPR:5 and CPR:6 (agonist and
+antagonist) are similarly paired. CPR:9 (substrate) is weaker; use it only
+when a metabolic framing is natural.
+
+Example shape (do not copy the content):
+  TEXT mentions compound X and kinase Y in separate sentences with no
+  stated relationship. You assert CPR:4(X, Y) and write a context passage
+  about the pathway Y sits in and X's activity against that pathway,
+  without ever saying that X inhibits Y.
+
+REMINDERS
+- Return only the new relation, not the gold ones.
+- The chemical-gene pair you pick must carry no gold relation.
+- context_text is required and must differ from current_context_text.
+- Return JSON only.
