@@ -1,8 +1,8 @@
 # HalluRE-Med
 
-**HalluRE-Med** is a benchmark suite for evaluating large language models (LLMs) on **biomedical relation extraction (RE)**, with a focus on both **extraction quality** and **hallucination robustness**. It measures not only whether a model can extract structured biomedical relations, but also whether those predictions are semantically trustworthy.
+**HalluRE-Med** is a benchmark suite for evaluating large language models (LLMs) on **biomedical relation extraction (RE)**, with a focus on both **extraction quality** and **hallucination robustness**. It measures not only whether a model can extract structured biomedical relations, but also whether those predictions are semantically reliable.
 
-Paper: *HalluRE-Med: A Unified Benchmark for Evaluating Hallucinations in Large Language Models for Biomedical Relation Extraction* (IEEE JBHI).
+#Paper: *HalluRE-Med: A Unified Benchmark for Evaluating Hallucinations in Large Language Models for Biomedical Relation Extraction* (IEEE JBHI).
 
 This repository releases **two benchmarks** and the **code used to build and evaluate them**:
 
@@ -11,7 +11,8 @@ This repository releases **two benchmarks** and the **code used to build and eva
 
 ![HalluRE-Med pipeline](hallure_pipeline.jpg)
 
-*Figure: overview of the HalluRE-Med pipeline. (1) Four source corpora are harmonized into a unified benchmark (6,401 rows, 49,809 entities). (2) Three hallucination categories — relation hallucination (RH), incompleteness (IC), and overgeneration (OG) — are constructed deterministically from gold relations with no LLM in the loop (13,183 instances, exact ground truth by construction). (3) The fourth category, context-induced hallucination (CI), is generated with Qwen3-14B and passed through schema-aware and independent semantic validation, yielding 17,653 total instances (9 source rows admitted none).*
+*Figure: overview of the HalluRE-Med pipeline.* 
+#(1) Four source corpora are harmonized into a unified benchmark (6,401 rows, 49,809 entities). (2) Three hallucination categories — relation hallucination (RH), #incompleteness (IC), and overgeneration (OG) — are constructed deterministically from gold relations with no LLM in the loop (13,183 instances, exact ground #truth by construction). (3) The fourth category, context-induced hallucination (CI), is generated with Qwen3-14B and passed through schema-aware and independent #semantic validation, yielding 17,653 total instances (9 source rows admitted none).*
 
 ## Available Now
 - Unified Biomedical RE Benchmark
@@ -91,7 +92,7 @@ Quick sanity check (no data, no model):
 python generate_re_hallu.py --self_test
 ```
 
-Key flags: `--categories` (subset of `relation_hallucination,incompleteness,overgeneration,context_induced`), `--flip_policy {adjacent,random}` and `--flip_k` (relation hallucination), `--prefer_annotated_negatives` (draw overgeneration pairs from DDI's human-annotated `NON` relations), `--target_*` (per-category size targets), `--seed`.
+Key flags: `--categories` (subset of `relation_hallucination,incompleteness,overgeneration,context_induced`), `--flip_policy {adjacent,random}` and `--flip_k` (relation hallucination), `--prefer_annotated_negatives` (draw overgeneration pairs from DDI's human-annotated `NON` relations),`--seed`.
 
 ### 3. Evaluate end-to-end biomedical RE
 ```bash
@@ -178,13 +179,10 @@ Independent semantic validation on a stratified 2,000-instance sample confirmed 
 If you use this benchmark or code, please cite:
 
 ```
-Solyman, A., Zappatore, M., Jeon, G., Chehri, A., Rahouti, M., Alfatemi, A., & Toseef, M.
-HalluRE-Med: A Unified Benchmark for Evaluating Hallucinations in Large Language Models
-for Biomedical Relation Extraction. IEEE Journal of Biomedical and Health Informatics.
+The paper is under review .... : )
 ```
 
 ## License / Contact
 
-Corresponding author: Aiman Solyman (aiman.solyman@unesp.br). See the paper for full author affiliations and dataset citations (ChemProt, DDI, DCE, BioRED).
+Corresponding author: Aiman Solyman (aiman.solyman@unesp.br). See the paper for dataset citations (ChemProt, DDI, DCE, BioRED).
 
-HalluRE-Med is built for research on **biomedical NLP**, **LLM reliability**, and **trustworthy medical AI**.
