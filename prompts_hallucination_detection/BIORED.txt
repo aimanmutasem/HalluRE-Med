@@ -1,0 +1,26 @@
+Dataset: BIORED
+Annotation level: entity-level
+Task type: biomedical_entity_relation
+
+Schema:
+- Relations are entity-level using entities defined in ENTITIES.
+- Common labels:
+  Association, Positive_Correlation, Negative_Correlation,
+  Bind, Comparison, Drug_Interaction, Cotreatment, Conversion
+
+Category definitions for this dataset (evaluate each independently against the
+evidence -- these are not listed in order of likelihood):
+
+- context_induced:
+  the relation is not supported by TEXT, but appears plausible from CONTEXT.
+
+- incompleteness:
+  every relation shown is correct, additional relations are clearly implied,
+  and no relation shown is itself incorrect.
+
+- overgeneration:
+  one or more extra relations are present that are not supported.
+
+- relation_hallucination:
+  the same entity pair/set is present, but the relation type is incorrect
+  or unsupported.

@@ -1,0 +1,27 @@
+Dataset: CHEMPROT
+Annotation level: mention-level
+Task type: chemical_gene_relation
+
+Schema:
+- Each relation connects two entity mentions from ENTITIES.
+- Valid pairing:
+  CHEMICAL (arg1) -> GENE (arg2)
+- Valid labels:
+  CPR:3, CPR:4, CPR:5, CPR:6, CPR:9
+
+Category definitions for this dataset (evaluate each independently against the
+evidence -- these are not listed in order of likelihood):
+
+- context_induced:
+  the relation is not supported by TEXT, but appears plausible from CONTEXT.
+
+- incompleteness:
+  every relation shown is correct, additional chemical-gene relations are
+  clearly implied, and no relation shown is itself incorrect.
+
+- overgeneration:
+  one or more extra unsupported chemical-gene relations are present.
+
+- relation_hallucination:
+  the same chemical-gene pair is present, but the relation label is
+  incorrect or unsupported.

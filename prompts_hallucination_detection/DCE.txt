@@ -1,0 +1,24 @@
+Dataset: DCE
+Annotation level: mention-level
+Task type: drug_combination_relation
+
+Schema:
+- Each relation connects two or more drug mentions from ENTITIES.
+- Valid labels:
+  POS, NEG, COMB
+
+Category definitions for this dataset (evaluate each independently against the
+evidence -- these are not listed in order of likelihood):
+
+- context_induced:
+  the combination is not supported by TEXT, but appears plausible from CONTEXT.
+
+- incompleteness:
+  the combination shown is valid, additional drugs or relations are clearly
+  implied, and no relation shown is itself incorrect.
+
+- overgeneration:
+  extra unsupported drug combinations or relations are present.
+
+- relation_hallucination:
+  the same drug combination is present, but the label is incorrect.

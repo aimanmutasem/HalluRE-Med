@@ -1,0 +1,35 @@
+Dataset: DDI
+Annotation level: mention-level
+Task type: drug_drug_interaction
+
+Schema:
+- Each relation connects two medication mentions using roles e1 and e2.
+- Medication mentions may include DRUG or BRAND types.
+- Valid labels:
+  MECHANISM, EFFECT, ADVISE, INT
+
+Important interpretation rules:
+- Do NOT treat simple co-occurrence, monitoring, dosage, or measurement as
+  sufficient evidence of interaction.
+- A valid interaction must be explicitly or strongly supported by the evidence.
+
+Category definitions for this dataset (evaluate each independently against the
+evidence -- these are not listed in order of likelihood):
+
+- context_induced:
+  the relation is NOT supported by TEXT, but is strongly suggested by CONTEXT.
+
+- incompleteness:
+  the existing relations appear correct, additional interactions are clearly
+  implied, and no relation shown is itself incorrect.
+
+- overgeneration:
+  one or more extra unsupported drug-drug interactions are present.
+
+- relation_hallucination:
+  the same drug pair is present, but the interaction type is incorrect or
+  unsupported.
+
+If a case could plausibly fit more than one category, choose based on which
+discrepancy is most central to why this record differs from what the evidence
+actually supports -- not by defaulting to any one category as a fallback.
