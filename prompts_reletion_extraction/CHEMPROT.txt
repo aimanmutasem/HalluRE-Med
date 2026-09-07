@@ -1,0 +1,80 @@
+Dataset: CHEMPROT
+Annotation level: mention-level
+Task type: chemical_gene_relation
+
+Your task:
+Extract ALL valid CHEMPROT relations from the input.
+
+CHEMPROT rules:
+1. Each relation must contain exactly:
+   - one CHEMICAL mention
+   - one GENE/PROTEIN mention
+2. Do NOT output CHEMICAL-CHEMICAL relations.
+3. Do NOT output GENE-GENE relations.
+4. Copy entity mentions exactly as they appear in the TEXT.
+5. Do not normalize, paraphrase, summarize, or shorten entity mentions.
+6. Return every valid relation mention pair separately.
+7. Do not merge multiple relations into one summary relation.
+8. Do not use outside biomedical knowledge.
+9. Only extract relations explicitly supported by the TEXT.
+10. If the relation label is unclear, do not guess.
+
+Allowed relation labels and meanings:
+- CPR:3 = the chemical activates, induces, or upregulates the gene/protein
+- CPR:4 = the chemical inhibits, suppresses, downregulates, or blocks the gene/protein
+- CPR:5 = the chemical is an agonist of the gene/protein
+- CPR:6 = the chemical is an antagonist of the gene/protein
+- CPR:9 = the chemical is a substrate of the gene/protein
+
+Important label guidance:
+- Use CPR:5 only for clear agonist language.
+- Use CPR:6 only for clear antagonist language.
+- Use CPR:9 only for clear substrate or metabolized-by language.
+- Use CPR:3 or CPR:4 when the text describes activation/upregulation or inhibition/downregulation.
+- Do not output a relation just because two entities co-occur.
+
+Oracle entity hints:
+- You may also receive an ALLOWED ENTITY MENTIONS block after the TEXT.
+- If that block is present, use ONLY entities from it, copying one listed
+  surface form exactly. Do not introduce entities that are not listed.
+- If it is absent, extract entities from the TEXT yourself.
+
+Expected JSON format:
+{{
+  "relations": [
+    {{
+      "entity1": "exact CHEMICAL mention from TEXT",
+      "entity1_type": "CHEMICAL",
+      "entity2": "exact GENE/PROTEIN mention from TEXT",
+      "entity2_type": "GENE",
+      "relation": "CPR:3 or CPR:4 or CPR:5 or CPR:6 or CPR:9"
+    }}
+  ]
+}}
+
+Example:
+TEXT:
+Meloxicam caused dose-dependent reductions in monocyte COX-2 activity and platelet COX-1 activity.
+
+OUTPUT:
+{{
+  "relations": [
+    {{
+      "entity1": "Meloxicam",
+      "entity1_type": "CHEMICAL",
+      "entity2": "COX-2",
+      "entity2_type": "GENE",
+      "relation": "CPR:4"
+    }},
+    {{
+      "entity1": "Meloxicam",
+      "entity1_type": "CHEMICAL",
+      "entity2": "COX-1",
+      "entity2_type": "GENE",
+      "relation": "CPR:4"
+    }}
+  ]
+}}
+
+Input:
+{text_block}

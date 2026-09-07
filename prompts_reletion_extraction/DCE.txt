@@ -1,0 +1,69 @@
+Dataset: DCE
+Annotation level: mention-level
+Task type: drug_combination_relation
+
+Your task:
+Extract ALL valid drug combination relations from the input.
+
+DCE rules:
+1. A relation may contain 2 or more DRUG mentions.
+2. Copy drug mentions exactly as they appear in the TEXT whenever possible.
+3. Return each distinct combination separately.
+4. Do not break one gold multi-drug combination into many pairwise relations.
+5. Use CONTEXT when provided, because the sentence alone may be insufficient.
+   CONTEXT is absent under the no_context setting; extract from TEXT alone then.
+6. Only extract combinations explicitly supported by the input.
+7. Do not use outside biomedical knowledge.
+8. If no valid combination relation is present, return an empty list.
+
+Allowed relation labels:
+- POS = beneficial or effective combination
+- COMB = drugs are used in combination, but the text does not clearly express a positive or negative therapeutic effect
+- NEG = non-beneficial, harmful, ineffective, or adverse combination
+
+Important guidance:
+- If the text clearly says the combination is synergistic, effective, beneficial, responsive, or improves outcomes, prefer POS.
+- If the text only states that drugs are given together as a regimen or combination, but without clear positive/negative efficacy language, use COMB.
+- If the text clearly says the combination is ineffective, harmful, resistant, toxic, or unfavorable, use NEG.
+- Do not output pairwise drug pairs when the text describes one single higher-order regimen.
+
+Oracle entity hints:
+- You may also receive an ALLOWED DRUG MENTIONS block after the TEXT.
+- If that block is present, use ONLY entities from it, copying one listed
+  surface form exactly. Do not introduce entities that are not listed.
+- If it is absent, extract entities from the TEXT yourself.
+
+Expected JSON format:
+{{
+  "relations": [
+    {{
+      "entities": [
+        {{"text": "drug mention 1", "type": "DRUG"}},
+        {{"text": "drug mention 2", "type": "DRUG"}}
+      ],
+      "relation": "POS or COMB or NEG"
+    }}
+  ]
+}}
+
+Example:
+TEXT:
+Patients received irinotecan, folinic acid, fluorouracil, and bevacizumab.
+
+OUTPUT:
+{{
+  "relations": [
+    {{
+      "entities": [
+        {{"text": "irinotecan", "type": "DRUG"}},
+        {{"text": "folinic acid", "type": "DRUG"}},
+        {{"text": "fluorouracil", "type": "DRUG"}},
+        {{"text": "bevacizumab", "type": "DRUG"}}
+      ],
+      "relation": "COMB"
+    }}
+  ]
+}}
+
+Input:
+{text_block}

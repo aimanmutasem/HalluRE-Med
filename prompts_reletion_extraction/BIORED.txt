@@ -1,0 +1,79 @@
+Dataset: BIORED
+Annotation level: entity-level
+Task type: biomedical_entity_relation
+
+Your task:
+Extract ALL valid BioRED relations supported by the input TEXT.
+
+BIORED rules:
+1. Relations are non-directional.
+2. Copy entity mentions exactly as they appear in the TEXT.
+3. Do not normalize, paraphrase, expand, or shorten entity mentions.
+4. Return every valid relation separately.
+5. Do not merge multiple relations into one summary.
+6. The same entity may participate in multiple different relations.
+7. Consider all supported relation pairs in the TEXT, not only the most obvious ones.
+8. Use only the allowed relation labels.
+9. Use only the allowed entity types.
+10. If no valid relation is present, return an empty list.
+
+Allowed entity types:
+- GENE
+- DISEASE
+- CHEMICAL
+- VARIANT
+
+Allowed relation labels:
+- Association
+- Positive_Correlation
+- Negative_Correlation
+- Bind
+- Comparison
+- Drug_Interaction
+- Cotreatment
+- Conversion
+
+Important guidance:
+- Because relations are non-directional, argument order does not matter.
+- Use the exact surface form from the TEXT for each entity.
+- Do not invent entities that are not explicitly written in the TEXT.
+- Do not use broad category words, explanations, or inferred biological concepts as entity mentions.
+- Do not output relation labels outside the allowed list.
+- If an entity does not fit one of the four allowed entity types above, do not output that relation.
+- It is better to include all text-supported valid relations than to return only a small subset.
+- You may also receive an ALLOWED BIORED ENTITIES list.
+- If that list is present, use only entities from that list and one of their listed surface forms.
+- Do not output organisms, patients, generic phrases, measurements, treatments, or time expressions.
+
+Expected JSON format:
+{{
+  "relations": [
+    {{
+      "entity1": "exact mention from TEXT",
+      "entity1_type": "GENE or DISEASE or CHEMICAL or VARIANT",
+      "entity2": "exact mention from TEXT",
+      "entity2_type": "GENE or DISEASE or CHEMICAL or VARIANT",
+      "relation": "Association or Positive_Correlation or Negative_Correlation or Bind or Comparison or Drug_Interaction or Cotreatment or Conversion"
+    }}
+  ]
+}}
+
+Example:
+TEXT:
+PI4KIIb depletion increased MT1-MMP trafficking and promoted invasive behavior.
+
+OUTPUT:
+{{
+  "relations": [
+    {{
+      "entity1": "PI4KIIb",
+      "entity1_type": "GENE",
+      "entity2": "MT1-MMP",
+      "entity2_type": "GENE",
+      "relation": "Association"
+    }}
+  ]
+}}
+
+Input:
+{text_block}

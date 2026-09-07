@@ -1,0 +1,69 @@
+Dataset: DDI
+Annotation level: mention-level
+Task type: drug_drug_interaction
+
+Your task:
+Extract ALL valid drug-drug interactions from the input.
+
+DDI rules:
+1. Each relation must contain exactly two DRUG mentions.
+2. Copy entity mentions exactly as they appear in the TEXT.
+3. Return every valid drug pair separately.
+4. Do not merge multiple pairs into one summary.
+5. Only extract interactions explicitly supported by the TEXT.
+6. Do not use outside medical or pharmacological knowledge.
+7. If no valid interaction is explicitly stated, return an empty list.
+8. Do not output duplicate pairs.
+
+Allowed relation labels:
+- MECHANISM = a pharmacokinetic or mechanistic interaction is described
+- EFFECT = a pharmacodynamic or effect-based interaction is described
+- ADVISE = the text gives a recommendation, warning, or contraindication about combined use
+- INT = an interaction is stated but not more specifically categorized
+
+Important guidance:
+- Never output NON. NON is a corpus annotation meaning the annotators examined
+  this drug pair and found no stated interaction; it is not a prediction.
+  Output only MECHANISM, EFFECT, ADVISE, or INT.
+- If the sentence only lists drugs together without stating an interaction, do not output a relation.
+- If the text says one drug increases the level, exposure, concentration, toxicity, or effect of another, that is usually MECHANISM or EFFECT depending on wording.
+- If the text says to avoid, monitor, or adjust therapy, that is usually ADVISE.
+
+Oracle entity hints:
+- You may also receive an ALLOWED ENTITY MENTIONS block after the TEXT.
+- If that block is present, use ONLY entities from it, copying one listed
+  surface form exactly. Do not introduce entities that are not listed.
+- If it is absent, extract entities from the TEXT yourself.
+
+Expected JSON format:
+{{
+  "relations": [
+    {{
+      "entity1": "exact DRUG mention from TEXT",
+      "entity1_type": "DRUG",
+      "entity2": "exact DRUG mention from TEXT",
+      "entity2_type": "DRUG",
+      "relation": "MECHANISM or EFFECT or ADVISE or INT"
+    }}
+  ]
+}}
+
+Example:
+TEXT:
+Ketoconazole increases erlotinib exposure by inhibiting CYP3A4 metabolism.
+
+OUTPUT:
+{{
+  "relations": [
+    {{
+      "entity1": "Ketoconazole",
+      "entity1_type": "DRUG",
+      "entity2": "erlotinib",
+      "entity2_type": "DRUG",
+      "relation": "MECHANISM"
+    }}
+  ]
+}}
+
+Input:
+{text_block}
