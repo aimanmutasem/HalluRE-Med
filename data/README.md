@@ -10,6 +10,6 @@ This directory provides access to the two public benchmark files used in **Hallu
 ## 2) RE Hallucination Benchmark
 - **File name:** `re_hallu_benchmark.jsonl`
 - **Description:** Relation-extraction hallucination benchmark examples in JSONL format.
-- **Download link:** https://drive.google.com/file/d/14-rObPo7JM3M9nPSJMMa6jj1YEA1kx2f/view?usp=drive_link
-
+- **Download link:** [https://drive.google.com/file/d/14-rObPo7JM3M9nPSJMMa6jj1YEA1kx2f/view?usp=drive_link
+](https://drive.google.com/file/d/1R2B_GGd1fGvi4tuKtAUdQJKqwxtC2Vuw/view?usp=sharing)
 
